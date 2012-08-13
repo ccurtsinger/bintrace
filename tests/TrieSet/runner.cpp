@@ -8,7 +8,7 @@
 #include <cppunit/TestResultCollector.h>
 #include <cppunit/TestRunner.h>
 #include <cppunit/BriefTestProgressListener.h>
-#include <cppunit/XMLOutputter.h>
+#include <cppunit/XmlOutputter.h>
 
 using namespace std;
 using namespace CPPUNIT_NS;
