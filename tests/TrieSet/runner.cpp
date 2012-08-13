@@ -15,7 +15,7 @@ TEST_F(HelloTest, TestA) {
 	EXPECT_TRUE(true);
 }
 
-TEST_F(HelloTest, TestB) {
+TEST_F(HelloTest, DISABLED_TestB) {
 	EXPECT_TRUE(false);
 }
 
