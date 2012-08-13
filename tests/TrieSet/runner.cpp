@@ -8,6 +8,7 @@
 #include <cppunit/TestResultCollector.h>
 #include <cppunit/TestRunner.h>
 #include <cppunit/BriefTestProgressListener.h>
+#include <cppunit/XMLOutputter.h>
 
 using namespace std;
 using namespace CPPUNIT_NS;
@@ -51,8 +52,13 @@ int main(int argc, char** argv) {
 	runner.addTest(TestFactoryRegistry::getRegistry().makeTest());
 	runner.run(result);
 	
-	CompilerOutputter output(&collector, cerr);
+	ofstream outfile("results.xml");
+	XmlOutputter output(&collector, outfile);
 	output.write();
+	outfile.close();
 	
-	return collector.wasSuccessful() ? 0 : 1;
+	//CompilerOutputter output(&collector, cerr);
+	//output.write();
+	
+	return 0;
 }
