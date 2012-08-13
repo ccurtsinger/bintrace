@@ -1,6 +1,6 @@
 
 test: runner
-	@./runner
+	@./runner --gtest_output=xml
 
 runner: runner.cpp
-	@clang++ -o runner runner.cpp -lcppunit
+	@clang++ -o runner runner.cpp -lgtest
