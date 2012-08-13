@@ -19,6 +19,10 @@ TEST_F(HelloTest, TestB) {
 	EXPECT_TRUE(false);
 }
 
+TEST_F(HelloTest, TestC) {
+	EXPECT_TRUE(1 < 2);
+}
+
 int main(int argc, char** argv) {
 	testing::InitGoogleTest(&argc, argv);
 	RUN_ALL_TESTS();
