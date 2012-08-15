@@ -1,5 +1,5 @@
 #include <cstdlib>
-#include "TrieSet.hpp"
+#include "bintrace/TrieSet.hpp"
 
 #include <gtest/gtest.h>
 
