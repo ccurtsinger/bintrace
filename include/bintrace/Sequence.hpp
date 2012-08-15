@@ -175,7 +175,7 @@ namespace bintrace {
 				uint8_t *current = this->pos - ud_insn_len(this->ud);
 
 		        // Print the disassembled instruction
-		        printf("%p\t%s\n", current, ud_insn_asm(this->ud));
+		        //printf("%p\t%s\n", current, ud_insn_asm(this->ud));
 	
 				Matcher<H...>::match(this, this->ud);
 
