@@ -22,6 +22,7 @@ public:
 TEST(DriverTest, Basic) {
 	Driver<Incrementor> d;
 
+	// Fill some memory with one-byte opcodes (int 3)
 	uint8_t* bytes = new uint8_t[100];
 	for(int i=0; i<100; i++) {
 		bytes[i] = 0xCC;
@@ -116,6 +117,7 @@ public:
 };
 
 TEST(DriverTest, FakeCFG) {
+	// Run the driver over a fake CFG encoded in the fakeCFG array (adjacency list)
 	Driver<FakeCFGTracer> d;
 	d.run(0);
 
@@ -130,8 +132,6 @@ TEST(DriverTest, FakeCFG) {
 }
 
 int main(int argc, char** argv) {
-	srand(time(NULL));
-	
 	testing::InitGoogleTest(&argc, argv);
 	RUN_ALL_TESTS();
 	
