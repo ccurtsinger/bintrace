@@ -1,6 +1,6 @@
 ROOT = ..
 
 RECURSIVE_TARGETS = test
-DIRS = TrieSet Simple
+DIRS = TrieMap Driver
 
 include $(ROOT)/common.mk

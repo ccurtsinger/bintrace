@@ -6,9 +6,8 @@
 #ifndef BINTRACE_H
 #define BINTRACE_H
 
-#include "bintrace/Matcher.hpp"
-#include "bintrace/Pattern.hpp"
-#include "bintrace/Sequence.hpp"
-#include "bintrace/SequenceControl.hpp"
+#include "bintrace/TrieMap.hpp"
+#include "bintrace/Driver.hpp"
+#include "bintrace/ControlFlowTracer.hpp"
 
 #endif
