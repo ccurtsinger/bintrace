@@ -7,18 +7,18 @@
 using namespace std;
 
 namespace bintrace {
-	template<typename K, typename V, V def, size_t Bits, size_t Stride=1> struct TrieMapBase;
+	template<typename K, typename V, size_t Bits, size_t Stride=1> struct TrieMapBase;
 
-	template<typename K, typename V, V def, size_t Stride> struct TrieMapBase<K, V, def, 0, Stride> {
+	template<typename K, typename V, size_t Stride> struct TrieMapBase<K, V, 0, Stride> {
 	private:
-		V value;
+		V* value;
 
 	public:
-		inline void add(K x, V v) {
+		inline void add(K x, V* v) {
 			value = v;
 		}
 
-		inline V lookup(K x) {
+		inline V* lookup(K x) {
 			return value;
 		}
 
@@ -27,14 +27,14 @@ namespace bintrace {
 		}
 	};
 
-	template<typename K, typename V, V def, size_t Bits, size_t Stride> struct TrieMapBase {
+	template<typename K, typename V, size_t Bits, size_t Stride> struct TrieMapBase {
 	private:
 		enum { 
 			ChildCount = 1 << Stride,
 			Mask = ChildCount - 1
 		};
 		
-		typedef TrieMapBase<K, V, def, Bits-Stride, Stride> ChildType;
+		typedef TrieMapBase<K, V, Bits-Stride, Stride> ChildType;
 		
 		ChildType* children[ChildCount];
 		
@@ -61,17 +61,17 @@ namespace bintrace {
 			}
 		}
 		
-		inline void add(K x, V v) {
+		inline void add(K x, V* v) {
 			child(index(x))->add(x, v);
 		}
 		
-		inline V lookup(K x) {
+		inline V* lookup(K x) {
 			size_t i = index(x);
 
 			if(hasChild(i)) {
 				return child(i)->lookup(x);
 			} else {
-				return def;
+				return NULL;
 			}
 		}
 		
@@ -88,8 +88,8 @@ namespace bintrace {
 		}
 	};
 
-	template<typename K, typename V, V def=NULL, size_t Stride=4>
-	struct TrieMap : public TrieMapBase<K, V, def, sizeof(K)*8, Stride> {};
+	template<typename K, typename V, size_t Stride=4>
+	struct TrieMap : public TrieMapBase<K, V, sizeof(K)*8, Stride> {};
 }
 
 #endif

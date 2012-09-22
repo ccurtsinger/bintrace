@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <cstdlib>
+#include <signal.h>
 #include <gtest/gtest.h>
 
 #include "bintrace.h"
@@ -14,7 +15,7 @@ public:
 		for(int j=0; j<10; j++) {
 			i->next();
 		}
-		i->finished();
+		i->end();
 		x++;
 	}
 };
@@ -112,7 +113,7 @@ public:
 		if(successors & H)
 			interval->fork(7);
 
-		interval->finished();
+		interval->end();
 	}
 };
 

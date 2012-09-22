@@ -7,16 +7,24 @@ using namespace bintrace;
 
 enum { Items = 10000 };
 
+class Element {
+public:
+	bool value;
+	Element(bool value) {
+		this->value = value;
+	}
+};
+
 class TrieMapTest : public testing::Test {
 protected:
-	TrieMap<int, bool, false> set;
+	TrieMap<int, Element> set;
 	int contents[Items];
 	
 	virtual void SetUp() {
 		// Add random elements to the TrieMap and an array
 		for(size_t i=0; i<Items; i++) {
 			int x = rand();
-			set.add(x, true);
+			set.add(x, new Element(true));
 			contents[i] = x;
 		}
 	}
@@ -25,7 +33,7 @@ protected:
 // Make sure everything in the array is also in the set
 TEST_F(TrieMapTest, ContainsTest) {
 	for(size_t i=0; i<Items; i++) {
-		EXPECT_TRUE(set.lookup(contents[i]));
+		EXPECT_TRUE(set.lookup(contents[i])->value);
 	}
 }
 
@@ -42,7 +50,7 @@ TEST_F(TrieMapTest, NotContainsTest) {
 		}
 		
 		if(!found) {
-			EXPECT_FALSE(set.lookup(x));
+			EXPECT_EQ(NULL, set.lookup(x));
 			count++;
 		}
 	}

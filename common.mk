@@ -2,6 +2,8 @@ INCLUDE_DIR = $(ROOT)/include
 TESTS_DIR = $(ROOT)/tests
 DIRS ?= 
 
+SHLIB_SUFFIX = dylib
+
 RECURSIVE_TARGETS ?= clean build
 
 all: build
