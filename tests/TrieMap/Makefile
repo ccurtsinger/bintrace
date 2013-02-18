@@ -4,5 +4,5 @@ include $(ROOT)/common.mk
 test: runner
 	@./runner --gtest_output=xml
 
-runner: runner.cpp $(INCLUDE_DIR)/bintrace/TrieMap.hpp
-	@clang++ --std=c++0x -I$(INCLUDE_DIR) -o runner runner.cpp -lgtest -lpthread
+runner: runner.cpp $(ROOT)/include/bintrace/TrieMap.hpp $(GTEST_LIB)
+	@clang++ --std=c++11 $(INCLUDE_FLAGS) -o runner runner.cpp $(GTEST_FLAGS)

@@ -1,4 +1,0 @@
-docs/html
-docs/latex
-tests/.*/runner$
-tests/.*/test_detail.xml

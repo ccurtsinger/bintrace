@@ -1,5 +1,5 @@
-#ifndef _TRIESET_H_
-#define _TRIESET_H_
+#if !defined(BINTRACE_TRIEMAP_HPP)
+#define BINTRACE_TRIEMAP_HPP
 
 #include <cstdio>
 #include <cstdlib>
@@ -7,24 +7,24 @@
 using namespace std;
 
 namespace bintrace {
-	template<typename K, typename V, size_t Bits, size_t Stride=1> struct TrieMapBase;
+    constexpr size_t min(size_t x, size_t y) {
+        return x > y ? y : x;
+    }
+    
+	template<typename K, typename V, size_t Bits, size_t Stride> struct TrieMapBase;
 
 	template<typename K, typename V, size_t Stride> struct TrieMapBase<K, V, 0, Stride> {
 	private:
-		V* value;
+		V _value;
 
 	public:
-		inline void add(K x, V* v) {
-			value = v;
-		}
-
-		inline V* lookup(K x) {
-			return value;
-		}
-
-		inline void print(K x) {
-			printf("%d\n", x);
-		}
+        inline bool contains(K x) {
+            return true;    
+        }
+        
+        inline V& getEntry(K x) {
+            return _value;
+        }
 	};
 
 	template<typename K, typename V, size_t Bits, size_t Stride> struct TrieMapBase {
@@ -34,7 +34,7 @@ namespace bintrace {
 			Mask = ChildCount - 1
 		};
 		
-		typedef TrieMapBase<K, V, Bits-Stride, Stride> ChildType;
+		typedef TrieMapBase<K, V, Bits-Stride, min(Stride, Bits-Stride)> ChildType;
 		
 		ChildType* children[ChildCount];
 		
@@ -60,36 +60,24 @@ namespace bintrace {
 				children[i] = NULL;
 			}
 		}
-		
-		inline void add(K x, V* v) {
-			child(index(x))->add(x, v);
-		}
-		
-		inline V* lookup(K x) {
-			size_t i = index(x);
-
-			if(hasChild(i)) {
-				return child(i)->lookup(x);
-			} else {
-				return NULL;
-			}
-		}
-		
-		inline void print() {
-			print(0);
-		}
-		
-		inline void print(K x) {
-			for(size_t i=0; i<ChildCount; i++) {
-				if(hasChild(i)) {
-					child(i)->print((i << Bits-Stride) | x);
-				}
-			}
-		}
+        
+        inline bool contains(K x) {
+            return hasChild(index(x)) && child(index(x))->contains(x);
+        }
+        
+        inline V& getEntry(K x) {
+            return child(index(x))->getEntry(x);
+        }
 	};
 
 	template<typename K, typename V, size_t Stride=4>
-	struct TrieMap : public TrieMapBase<K, V, sizeof(K)*8, Stride> {};
+	struct TrieMap : public TrieMapBase<K, V, sizeof(K)*8, Stride> {
+        typedef TrieMapBase<K, V, sizeof(K)*8, Stride> Super;
+    public:
+        inline V& operator[](K x) {
+            return Super::getEntry(x);
+        }
+    };
 }
 
 #endif

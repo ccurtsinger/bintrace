@@ -1,6 +1,6 @@
 ROOT = ..
 
 RECURSIVE_TARGETS = test
-DIRS = TrieMap Driver ControlFlowTracer
+DIRS = Disassembler TrieMap
 
 include $(ROOT)/common.mk

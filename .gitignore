@@ -1,0 +1,5 @@
+gtest-1.6.0.zip
+gtest-1.6.0
+nbproject
+tests/*/runner
+tests/*/test_detail.xml

@@ -1,7 +1,7 @@
 #include <cstdlib>
 #include <gtest/gtest.h>
 
-#include "bintrace.h"
+#include <bintrace.h>
 
 using namespace bintrace;
 
@@ -17,14 +17,16 @@ public:
 
 class TrieMapTest : public testing::Test {
 protected:
-	TrieMap<int, Element> set;
+    // Test with a stride of 3 (which doesn't evenly divide 32 or 64)
+    // just to be sure the base case works properly
+	TrieMap<int, Element*, 4> set;
 	int contents[Items];
 	
 	virtual void SetUp() {
 		// Add random elements to the TrieMap and an array
 		for(size_t i=0; i<Items; i++) {
 			int x = rand();
-			set.add(x, new Element(true));
+            set[x] = new Element(true);
 			contents[i] = x;
 		}
 	}
@@ -33,7 +35,7 @@ protected:
 // Make sure everything in the array is also in the set
 TEST_F(TrieMapTest, ContainsTest) {
 	for(size_t i=0; i<Items; i++) {
-		EXPECT_TRUE(set.lookup(contents[i])->value);
+		EXPECT_TRUE(set.contains(contents[i]) && set[contents[i]]->value);
 	}
 }
 
@@ -50,7 +52,7 @@ TEST_F(TrieMapTest, NotContainsTest) {
 		}
 		
 		if(!found) {
-			EXPECT_EQ(NULL, set.lookup(x));
+			EXPECT_FALSE(set.contains(x));
 			count++;
 		}
 	}
@@ -60,7 +62,5 @@ int main(int argc, char** argv) {
 	srand(time(NULL));
 	
 	testing::InitGoogleTest(&argc, argv);
-	RUN_ALL_TESTS();
-	
-	return 0;
+	return RUN_ALL_TESTS();
 }
