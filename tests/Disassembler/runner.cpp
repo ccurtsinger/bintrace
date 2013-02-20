@@ -34,11 +34,10 @@ TEST(DisassemblerTest, Simple) {
     Disassembler d(data, data + sizeof(data));
     
     const char** txt = insns;
-    ud_t* ud = d.next();
     
     while(!d.done()) {
+        ud_t* ud = d.next();
         EXPECT_STREQ(ud_insn_asm(ud), *txt);
-        ud = d.next();
         txt++;
     }
 }
