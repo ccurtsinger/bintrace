@@ -31,7 +31,7 @@ TEST(DisassemblerTest, Simple) {
         "ret "
     };
     
-    Disassembler d(data, data + sizeof(data));
+    Disassembler d((uintptr_t)data, (uintptr_t)data + 20);
     
     const char** txt = insns;
     
