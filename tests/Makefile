@@ -1,6 +1,6 @@
 ROOT = ..
 
 RECURSIVE_TARGETS = test
-DIRS = Disassembler TrieMap
+DIRS = Disassembler Traversal TrieMap
 
 include $(ROOT)/common.mk

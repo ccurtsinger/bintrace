@@ -28,7 +28,7 @@ TEST(DisassemblerTest, Simple) {
         "add esi, [rbp-0x8]",
         "mov eax, esi",
         "pop rbp",
-        "ret "
+        "ret"
     };
     
     Disassembler d((uintptr_t)data, (uintptr_t)data + 20);

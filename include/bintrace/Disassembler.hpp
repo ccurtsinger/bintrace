@@ -15,7 +15,7 @@ namespace bintrace {
         Disassembler(uintptr_t base, uintptr_t limit) : Interval(base, limit) {
             ud_init(&_ud);
             ud_set_input_buffer(&_ud, (uint8_t*)Interval::base(), Interval::size());
-            ud_set_mode(&_ud, 64);
+            ud_set_mode(&_ud, 0b1000000);
             ud_set_syntax(&_ud, UD_SYN_INTEL);
         }
         

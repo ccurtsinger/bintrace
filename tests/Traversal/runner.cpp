@@ -19,7 +19,6 @@ TEST(TraversalTest, Simple) {
         
         while(i != NULL && !i->done()) {
             uintptr_t x = i->next();
-            printf("at %lu\n", x);
             visits[x]++;
             
             switch(x) {

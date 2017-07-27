@@ -1,5 +1,6 @@
-gtest-1.6.0.zip
-gtest-1.6.0
-nbproject
 tests/*/runner
 tests/*/test_detail.xml
+.DS_Store
+googletest-release-1.8.0
+release-1.8.0.zip
+tests/Disassembler/libgtest.a
